@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
-import { Globe, Moon, Sun, Search, Menu, ChevronDown } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { Globe, Moon, Sun, Search, Menu } from "lucide-react";
 
 const nav = [
-  "О ведомстве",
-  "Услуги",
-  "Стандарты",
-  "Сертификация",
-  "Метрология",
-  "Реестры",
+  { label: "О ведомстве", to: "/about" as const },
+  { label: "Услуги", to: "/services" as const },
+  { label: "Стандарты", to: "/standards" as const },
+  { label: "Сертификация", to: "/certification" as const },
+  { label: "Метрология", to: "/metrology" as const },
+  { label: "Реестры", to: "/registers" as const },
 ];
 
 export function Header() {
@@ -47,7 +48,7 @@ export function Header() {
 
       {/* Main nav */}
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-6 px-6 py-3">
-        <a href="/" className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3">
           <div className="relative">
             <div className="grid h-11 w-11 place-items-center rounded-xl gradient-primary text-primary-foreground shadow-lift">
               <span className="font-display text-lg font-bold">КС</span>
@@ -62,18 +63,18 @@ export function Header() {
               National Standardization Authority
             </div>
           </div>
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
           {nav.map((item) => (
-            <a
-              key={item}
-              href="#"
-              className="group flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-foreground"
+            <Link
+              key={item.to}
+              to={item.to}
+              activeProps={{ className: "bg-accent text-primary" }}
+              className="rounded-lg px-3 py-2 text-sm font-medium text-foreground/80 transition-colors duration-300 hover:bg-accent hover:text-primary"
             >
-              {item}
-              <ChevronDown className="h-3.5 w-3.5 opacity-50 transition-transform group-hover:rotate-180" />
-            </a>
+              {item.label}
+            </Link>
           ))}
         </nav>
 

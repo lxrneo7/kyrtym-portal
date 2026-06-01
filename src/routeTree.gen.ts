@@ -9,8 +9,44 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as StandardsRouteImport } from './routes/standards'
+import { Route as ServicesRouteImport } from './routes/services'
+import { Route as RegistersRouteImport } from './routes/registers'
+import { Route as MetrologyRouteImport } from './routes/metrology'
+import { Route as CertificationRouteImport } from './routes/certification'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const StandardsRoute = StandardsRouteImport.update({
+  id: '/standards',
+  path: '/standards',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegistersRoute = RegistersRouteImport.update({
+  id: '/registers',
+  path: '/registers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MetrologyRoute = MetrologyRouteImport.update({
+  id: '/metrology',
+  path: '/metrology',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CertificationRoute = CertificationRouteImport.update({
+  id: '/certification',
+  path: '/certification',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +55,116 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/certification': typeof CertificationRoute
+  '/metrology': typeof MetrologyRoute
+  '/registers': typeof RegistersRoute
+  '/services': typeof ServicesRoute
+  '/standards': typeof StandardsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/certification': typeof CertificationRoute
+  '/metrology': typeof MetrologyRoute
+  '/registers': typeof RegistersRoute
+  '/services': typeof ServicesRoute
+  '/standards': typeof StandardsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/certification': typeof CertificationRoute
+  '/metrology': typeof MetrologyRoute
+  '/registers': typeof RegistersRoute
+  '/services': typeof ServicesRoute
+  '/standards': typeof StandardsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/certification'
+    | '/metrology'
+    | '/registers'
+    | '/services'
+    | '/standards'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/certification'
+    | '/metrology'
+    | '/registers'
+    | '/services'
+    | '/standards'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/certification'
+    | '/metrology'
+    | '/registers'
+    | '/services'
+    | '/standards'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  CertificationRoute: typeof CertificationRoute
+  MetrologyRoute: typeof MetrologyRoute
+  RegistersRoute: typeof RegistersRoute
+  ServicesRoute: typeof ServicesRoute
+  StandardsRoute: typeof StandardsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/standards': {
+      id: '/standards'
+      path: '/standards'
+      fullPath: '/standards'
+      preLoaderRoute: typeof StandardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/registers': {
+      id: '/registers'
+      path: '/registers'
+      fullPath: '/registers'
+      preLoaderRoute: typeof RegistersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/metrology': {
+      id: '/metrology'
+      path: '/metrology'
+      fullPath: '/metrology'
+      preLoaderRoute: typeof MetrologyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/certification': {
+      id: '/certification'
+      path: '/certification'
+      fullPath: '/certification'
+      preLoaderRoute: typeof CertificationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +177,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  CertificationRoute: CertificationRoute,
+  MetrologyRoute: MetrologyRoute,
+  RegistersRoute: RegistersRoute,
+  ServicesRoute: ServicesRoute,
+  StandardsRoute: StandardsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
