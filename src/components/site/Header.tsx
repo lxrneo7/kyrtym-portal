@@ -1,21 +1,25 @@
 import { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
-import { Globe, Moon, Sun, Search, Menu, Eye } from "lucide-react";
+import { Moon, Sun, Search, Menu, Eye, Inbox } from "lucide-react";
 import { useA11y } from "@/components/a11y/AccessibilityContext";
-
-const nav = [
-  { label: "О ведомстве", to: "/about" as const },
-  { label: "Услуги", to: "/services" as const },
-  { label: "Стандарты", to: "/standards" as const },
-  { label: "Сертификация", to: "/certification" as const },
-  { label: "Метрология", to: "/metrology" as const },
-  { label: "Реестры", to: "/registers" as const },
-];
+import { useI18n } from "@/components/i18n/I18nContext";
+import { LanguageSwitcher } from "@/components/i18n/LanguageSwitcher";
 
 export function Header() {
   const { setPanelOpen } = useA11y();
+  const { t } = useI18n();
   const [dark, setDark] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const nav = [
+    { label: t("nav.about"), to: "/about" as const },
+    { label: t("nav.services"), to: "/services" as const },
+    { label: t("nav.standards"), to: "/standards" as const },
+    { label: t("nav.certification"), to: "/certification" as const },
+    { label: t("nav.metrology"), to: "/metrology" as const },
+    { label: t("nav.registers"), to: "/registers" as const },
+    { label: t("nav.appeals"), to: "/appeals" as const },
+  ];
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
@@ -34,27 +38,25 @@ export function Header() {
         scrolled ? "glass shadow-card" : "bg-background/60 backdrop-blur-md"
       }`}
     >
-      {/* Top bar */}
       <div className="border-b border-border/60">
         <div className="mx-auto flex h-9 max-w-7xl items-center justify-between px-6 text-xs text-muted-foreground">
           <div className="flex items-center gap-4">
-            <span>Кыргыз Республикасынын Министрлер Кабинети</span>
+            <span>{t("header.cabinet")}</span>
           </div>
           <div className="flex items-center gap-4">
-            <a href="#" className="hover:text-foreground">Горячая линия: 1222</a>
+            <a href="tel:1222" className="hover:text-foreground">{t("header.hotline")}</a>
             <span className="h-3 w-px bg-border" />
             <button
               onClick={() => setPanelOpen(true)}
               className="inline-flex items-center gap-1.5 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
             >
               <Eye className="h-3.5 w-3.5" />
-              Версия для слабовидящих
+              {t("header.a11y")}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Main nav */}
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-6 px-6 py-3">
         <Link to="/" className="flex items-center gap-3">
           <div className="relative">
@@ -73,7 +75,7 @@ export function Header() {
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="hidden items-center gap-1 xl:flex">
           {nav.map((item) => (
             <Link
               key={item.to}
@@ -87,19 +89,19 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <Link
+            to="/appeals"
+            className="hidden h-10 items-center gap-1.5 rounded-lg px-3 text-sm font-medium text-primary hover:bg-accent md:inline-flex xl:hidden"
+          >
+            <Inbox className="h-4 w-4" /> {t("nav.appeals")}
+          </Link>
           <button
-            aria-label="Search"
+            aria-label={t("header.search")}
             className="grid h-10 w-10 place-items-center rounded-lg text-foreground/70 hover:bg-accent hover:text-foreground"
           >
             <Search className="h-4.5 w-4.5" />
           </button>
-          <button
-            aria-label="Language"
-            className="hidden h-10 items-center gap-1.5 rounded-lg px-3 text-sm font-medium text-foreground/70 hover:bg-accent hover:text-foreground sm:flex"
-          >
-            <Globe className="h-4 w-4" />
-            RU
-          </button>
+          <LanguageSwitcher />
           <button
             onClick={() => setDark(!dark)}
             aria-label="Toggle theme"
@@ -107,10 +109,10 @@ export function Header() {
           >
             {dark ? <Sun className="h-4.5 w-4.5" /> : <Moon className="h-4.5 w-4.5" />}
           </button>
-          <button className="hidden h-10 items-center gap-2 rounded-lg gradient-primary px-4 text-sm font-semibold text-primary-foreground shadow-lift transition-transform hover:scale-[1.02] md:inline-flex">
-            Личный кабинет
+          <button className="hidden h-10 items-center gap-2 rounded-lg gradient-primary px-4 text-sm font-semibold text-primary-foreground shadow-lift transition-transform hover:scale-[1.02] lg:inline-flex">
+            {t("header.account")}
           </button>
-          <button aria-label="Menu" className="grid h-10 w-10 place-items-center rounded-lg lg:hidden">
+          <button aria-label="Menu" className="grid h-10 w-10 place-items-center rounded-lg xl:hidden">
             <Menu className="h-5 w-5" />
           </button>
         </div>

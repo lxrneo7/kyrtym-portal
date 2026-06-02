@@ -11,6 +11,7 @@ import {
 import appCss from "../styles.css?url";
 import { AccessibilityProvider } from "@/components/a11y/AccessibilityContext";
 import { AccessibilityPanel } from "@/components/a11y/AccessibilityPanel";
+import { I18nProvider } from "@/components/i18n/I18nContext";
 
 function NotFoundComponent() {
   return (
@@ -119,11 +120,13 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AccessibilityProvider>
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
-        <AccessibilityPanel />
-      </AccessibilityProvider>
+      <I18nProvider>
+        <AccessibilityProvider>
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+          <AccessibilityPanel />
+        </AccessibilityProvider>
+      </I18nProvider>
     </QueryClientProvider>
   );
 }
