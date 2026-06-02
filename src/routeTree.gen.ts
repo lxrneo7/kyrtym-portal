@@ -14,6 +14,7 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as RegistersRouteImport } from './routes/registers'
 import { Route as MetrologyRouteImport } from './routes/metrology'
 import { Route as CertificationRouteImport } from './routes/certification'
+import { Route as AppealsRouteImport } from './routes/appeals'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -42,6 +43,11 @@ const CertificationRoute = CertificationRouteImport.update({
   path: '/certification',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppealsRoute = AppealsRouteImport.update({
+  id: '/appeals',
+  path: '/appeals',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -56,6 +62,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/appeals': typeof AppealsRoute
   '/certification': typeof CertificationRoute
   '/metrology': typeof MetrologyRoute
   '/registers': typeof RegistersRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/appeals': typeof AppealsRoute
   '/certification': typeof CertificationRoute
   '/metrology': typeof MetrologyRoute
   '/registers': typeof RegistersRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/appeals': typeof AppealsRoute
   '/certification': typeof CertificationRoute
   '/metrology': typeof MetrologyRoute
   '/registers': typeof RegistersRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/appeals'
     | '/certification'
     | '/metrology'
     | '/registers'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/appeals'
     | '/certification'
     | '/metrology'
     | '/registers'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/appeals'
     | '/certification'
     | '/metrology'
     | '/registers'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AppealsRoute: typeof AppealsRoute
   CertificationRoute: typeof CertificationRoute
   MetrologyRoute: typeof MetrologyRoute
   RegistersRoute: typeof RegistersRoute
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CertificationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/appeals': {
+      id: '/appeals'
+      path: '/appeals'
+      fullPath: '/appeals'
+      preLoaderRoute: typeof AppealsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -178,6 +198,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AppealsRoute: AppealsRoute,
   CertificationRoute: CertificationRoute,
   MetrologyRoute: MetrologyRoute,
   RegistersRoute: RegistersRoute,
@@ -187,3 +208,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
