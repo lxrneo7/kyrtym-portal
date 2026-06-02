@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
-import { Globe, Moon, Sun, Search, Menu } from "lucide-react";
+import { Globe, Moon, Sun, Search, Menu, Eye } from "lucide-react";
+import { useA11y } from "@/components/a11y/AccessibilityContext";
 
 const nav = [
   { label: "О ведомстве", to: "/about" as const },
