@@ -9,6 +9,8 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { AccessibilityProvider } from "@/components/a11y/AccessibilityContext";
+import { AccessibilityPanel } from "@/components/a11y/AccessibilityPanel";
 
 function NotFoundComponent() {
   return (
