@@ -13,6 +13,7 @@ const nav = [
 ];
 
 export function Header() {
+  const { setPanelOpen } = useA11y();
   const [dark, setDark] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
