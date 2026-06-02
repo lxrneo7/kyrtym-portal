@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
-import { Globe, Moon, Sun, Search, Menu } from "lucide-react";
+import { Globe, Moon, Sun, Search, Menu, Eye } from "lucide-react";
+import { useA11y } from "@/components/a11y/AccessibilityContext";
 
 const nav = [
   { label: "О ведомстве", to: "/about" as const },
@@ -12,6 +13,7 @@ const nav = [
 ];
 
 export function Header() {
+  const { setPanelOpen } = useA11y();
   const [dark, setDark] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -41,7 +43,13 @@ export function Header() {
           <div className="flex items-center gap-4">
             <a href="#" className="hover:text-foreground">Горячая линия: 1222</a>
             <span className="h-3 w-px bg-border" />
-            <a href="#" className="hover:text-foreground">Версия для слабовидящих</a>
+            <button
+              onClick={() => setPanelOpen(true)}
+              className="inline-flex items-center gap-1.5 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
+            >
+              <Eye className="h-3.5 w-3.5" />
+              Версия для слабовидящих
+            </button>
           </div>
         </div>
       </div>
