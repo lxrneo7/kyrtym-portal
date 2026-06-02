@@ -174,3 +174,126 @@
     background-size: 48px 48px;
   }
 }
+
+/* ============================================================
+   Accessibility (WCAG 2.1 AA) — Версия для слабовидящих
+   Applied via classes on <html> by AccessibilityProvider
+   ============================================================ */
+.a11y-enabled,
+.a11y-enabled * {
+  transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease,
+    font-size 200ms ease, letter-spacing 200ms ease, line-height 200ms ease !important;
+}
+
+/* Font sizes — applied on html root, rem cascades */
+html.a11y-fs-large { font-size: 18px; }
+html.a11y-fs-xlarge { font-size: 21px; }
+html.a11y-fs-xxlarge { font-size: 24px; }
+
+/* Letter spacing */
+.a11y-ls-wide body, .a11y-ls-wide body * { letter-spacing: 0.05em !important; }
+.a11y-ls-wider body, .a11y-ls-wider body * { letter-spacing: 0.12em !important; }
+
+/* Line height */
+.a11y-lh-relaxed body, .a11y-lh-relaxed body * { line-height: 1.7 !important; }
+.a11y-lh-loose body, .a11y-lh-loose body * { line-height: 2 !important; }
+
+/* Color schemes — override design tokens at root */
+.a11y-cs-bw {
+  --background: #ffffff; --foreground: #000000;
+  --card: #ffffff; --card-foreground: #000000;
+  --popover: #ffffff; --popover-foreground: #000000;
+  --muted: #f0f0f0; --muted-foreground: #000000;
+  --accent: #e5e5e5; --accent-foreground: #000000;
+  --primary: #000000; --primary-foreground: #ffffff;
+  --secondary: #000000; --secondary-foreground: #ffffff;
+  --border: #000000; --input: #000000; --ring: #000000;
+  --surface: #ffffff;
+}
+.a11y-cs-wb {
+  --background: #000000; --foreground: #ffffff;
+  --card: #000000; --card-foreground: #ffffff;
+  --popover: #000000; --popover-foreground: #ffffff;
+  --muted: #1a1a1a; --muted-foreground: #ffffff;
+  --accent: #2a2a2a; --accent-foreground: #ffffff;
+  --primary: #ffffff; --primary-foreground: #000000;
+  --secondary: #ffffff; --secondary-foreground: #000000;
+  --border: #ffffff; --input: #ffffff; --ring: #ffffff;
+  --surface: #000000;
+}
+.a11y-cs-yb {
+  --background: #000000; --foreground: #ffd500;
+  --card: #000000; --card-foreground: #ffd500;
+  --popover: #000000; --popover-foreground: #ffd500;
+  --muted: #1a1a1a; --muted-foreground: #ffd500;
+  --accent: #2a2200; --accent-foreground: #ffd500;
+  --primary: #ffd500; --primary-foreground: #000000;
+  --secondary: #ffd500; --secondary-foreground: #000000;
+  --border: #ffd500; --input: #ffd500; --ring: #ffd500;
+  --surface: #000000;
+}
+.a11y-cs-bl {
+  --background: #9ed4f5; --foreground: #00254d;
+  --card: #cfe8f9; --card-foreground: #00254d;
+  --popover: #cfe8f9; --popover-foreground: #00254d;
+  --muted: #b8def8; --muted-foreground: #00254d;
+  --accent: #b8def8; --accent-foreground: #00254d;
+  --primary: #00254d; --primary-foreground: #ffffff;
+  --secondary: #00254d; --secondary-foreground: #ffffff;
+  --border: #00254d; --input: #00254d; --ring: #00254d;
+  --surface: #b8def8;
+}
+
+/* Force-strip decorative gradients/images in a11y color schemes */
+.a11y-cs-bw .gradient-primary, .a11y-cs-wb .gradient-primary,
+.a11y-cs-yb .gradient-primary, .a11y-cs-bl .gradient-primary,
+.a11y-cs-bw .gradient-hero, .a11y-cs-wb .gradient-hero,
+.a11y-cs-yb .gradient-hero, .a11y-cs-bl .gradient-hero,
+.a11y-cs-bw .gradient-gold, .a11y-cs-wb .gradient-gold,
+.a11y-cs-yb .gradient-gold, .a11y-cs-bl .gradient-gold {
+  background: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+}
+
+/* No animations */
+.a11y-no-animations,
+.a11y-no-animations *,
+.a11y-no-animations *::before,
+.a11y-no-animations *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* No background images / decorative images */
+.a11y-no-images *[style*="background-image"],
+.a11y-no-images .pattern-grid {
+  background-image: none !important;
+}
+.a11y-no-images img:not([alt=""]):not([role="img"]) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Underline links */
+.a11y-underline-links a {
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+}
+
+/* Large touch targets */
+.a11y-large-targets a,
+.a11y-large-targets button,
+.a11y-large-targets [role="button"],
+.a11y-large-targets input[type="button"],
+.a11y-large-targets input[type="submit"] {
+  min-height: 48px;
+  min-width: 48px;
+  padding: 0.625rem 1rem;
+}
+
+/* Strong focus ring globally when a11y enabled */
+.a11y-enabled :focus-visible {
+  outline: 3px solid var(--ring) !important;
+  outline-offset: 2px !important;
+}
